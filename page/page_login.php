@@ -6,6 +6,9 @@
     <title>Login</title>
 </head>
 <body>
+    <?php if(isset($_GET["err"]) && $_GET["err"]==1){ ?>
+        <p>erreur</p>
+        <?php } ?>
     <form action="traitement_login.php" method="get">
        <p>Nom :</p> <input type="text" name="nom" id="">
        <p>E-mail :</p> <input type="email" name="email" id="">
