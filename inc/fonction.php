@@ -1,6 +1,6 @@
-<?php 
+<?php
 require "connexion.php";
-ini_set("display_errors","1");
+ini_set("display_errors", "1");
 
 /*function departement_jiaby () {
     $req1 = mysqli_query(dbconnect(),"SELECT * FROM departments "); 
@@ -186,7 +186,7 @@ function  precedent($reche, $type){
     $req = mysqli_query($conn, "SELECT  first_name,last_name,birth_date
             FROM employees 
             WHERE birth_date => '$date_max' Limit 0, 20");
-   
+
     } else if ($type == 4) {
     $date_max = date('Y-m-d', strtotime("-$reche years"));
     $req = mysqli_query($conn, "SELECT  first_name,last_name,birth_date
@@ -201,22 +201,44 @@ function  precedent($reche, $type){
     return $res;
 }*/
 
-function list_object () {
-    $req1 = mysqli_query(dbconnect(),"SELECT nom_objet,date_retour FROM v_list_object "); 
-    $res=array();
-    while($result1 = mysqli_fetch_array($req1)){
-        $res[]=$result1;
+function list_object()
+{
+    $req1 = mysqli_query(dbconnect(), "SELECT nom_objet,date_retour FROM v_list_object ");
+    $res = array();
+    while ($result1 = mysqli_fetch_array($req1)) {
+        $res[] = $result1;
     }
-    return $res;  
+    return $res;
 }
 
-function list_object_cat() {
-    $req1 = mysqli_query(dbconnect(),"SELECT * FROM v_liste_objet_categorie "); 
-    $res=array();
-    while($result1 = mysqli_fetch_array($req1)){
-        $res[]=$result1;
+function list_object_cat()
+{
+    $req1 = mysqli_query(dbconnect(), "SELECT * FROM v_liste_objet_categorie ");
+    $res = array();
+    while ($result1 = mysqli_fetch_array($req1)) {
+        $res[] = $result1;
     }
-    return $res;  
+    return $res;
+}
+
+function list_cat()
+{
+    $req1 = mysqli_query(dbconnect(), "SELECT * FROM v_lis_categorie ");
+    $res = array();
+    while ($result1 = mysqli_fetch_array($req1)) {
+        $res[] = $result1;
+    }
+    return $res;
+}
+
+function recherche_jiaby($recherche)
+{
+    $req1 = mysqli_query(dbconnect(), "SELECT o.nom_objet,co.nom_categorie FROM objet o JOIN categorie_objet co ON co.id_categorie=o.id_categorie WHERE co.nom_categorie='$recherche';");
+    $res = array();
+    while ($result1 = mysqli_fetch_array($req1)) {
+        $res[] = $result1;
+    }
+    return $res;
 }
 
 
