@@ -34,6 +34,8 @@ CREATE TABLE images_objet (
     FOREIGN KEY (id_objet) REFERENCES objet(id_objet) ON DELETE CASCADE
 );
 
+
+
 CREATE TABLE emprunt (
     id_emprunt INT AUTO_INCREMENT PRIMARY KEY,
     id_objet INT NOT NULL,
