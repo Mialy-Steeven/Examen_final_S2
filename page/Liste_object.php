@@ -4,7 +4,6 @@ require "../inc/fonction.php";
 $liste_object = list_object();
 $liste_objet_cat = list_object_cat();
 $lis_cat=list_cat();
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,20 +20,23 @@ $lis_cat=list_cat();
 
 <body>
     <div class="main-container">
-        <!-- Header -->
+
+        
         <div class="page-header fade-in">
             <h1 class="page-title">
                 <i class="bi bi-collection"></i>
                 Gestion des Objets
             </h1>
             <p class="page-subtitle">Suivi et gestion des objets empruntés</p>
+             <a href="fiche_membre.php">Fiche membre </a>
         </div>
 
         <div>
+           
             <form method="GET" action="recherche.php">
                 <label for="categorie">Catégorie :</label>
                 <select name="categorie" id="categorie">
-                    <option value="">categorie objet</option>
+                    <option value="">categorie objet</option> 
                     <?php foreach ($lis_cat as $key => $value) { ?>
                         <option value="<?= $value['nom_categorie']; ?>"><?= $value['nom_categorie']; ?></option>
                     <?php } ?>
@@ -148,6 +150,7 @@ $lis_cat=list_cat();
                 </div>
             <?php endif; ?>
         </div>
+<<<<<<< HEAD
 
         <!-- Tableau 2: Liste des objets par catégorie -->
         <div class="table-container fade-in">
@@ -243,7 +246,6 @@ $lis_cat=list_cat();
                 </div>
             <?php endif; ?>
         </div>
-
 </body>
 
 </html>

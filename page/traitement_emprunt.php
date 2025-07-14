@@ -17,4 +17,5 @@ if (isset($_GET["id_o"]) && isset($_GET["jour"])) {
     header("Location: Liste_object.php");
     exit();
 }
+
 ?>

@@ -46,6 +46,16 @@ CREATE TABLE emprunt (
     FOREIGN KEY (id_membre) REFERENCES membre(id_membre) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS etat_retour (
+    id_etat INT AUTO_INCREMENT PRIMARY KEY,
+    id_emprunt INT NOT NULL,
+    etat ENUM('intact','abime') NOT NULL,
+    date_retour DATE NOT NULL,
+    FOREIGN KEY (id_emprunt) REFERENCES emprunt(id_emprunt) ON DELETE CASCADE
+);
+
+
+
 INSERT INTO categorie_objet (nom_categorie) VALUES 
 ('Esthétique'), 
 ('Bricolage'), 
@@ -92,7 +102,7 @@ INSERT INTO objet (nom_objet, id_categorie, id_membre) VALUES
 (5, 'rouge_levres.jpg');*/
 
 
-INSERT INTO emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES
+INSERT INTO emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES 
 (2, 2, '2025-07-01', '2025-07-05'),
 (3, 3, '2025-07-02', '2025-07-08'),
 (5, 4, '2025-07-03', NULL),
@@ -103,3 +113,8 @@ INSERT INTO emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES
 (22, 1, '2025-07-07', '2025-07-12'),
 (28, 2, '2025-07-08', NULL),
 (30, 3, '2025-07-09', NULL);
+
+
+INSERT INTO emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES (1, 3, '2025-07-02', NULL);
+INSERT INTO emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES (2, 3, '2025-07-02', NULL);
+INSERT INTO emprunt (id_objet, id_membre, date_emprunt, date_retour) VALUES (3, 3, '2025-07-02', NULL);
