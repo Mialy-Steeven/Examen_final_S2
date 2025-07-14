@@ -201,5 +201,23 @@ function  precedent($reche, $type){
     return $res;
 }*/
 
+function list_object () {
+    $req1 = mysqli_query(dbconnect(),"SELECT nom_objet,date_retour FROM v_list_object "); 
+    $res=array();
+    while($result1 = mysqli_fetch_array($req1)){
+        $res[]=$result1;
+    }
+    return $res;  
+}
+
+function list_object_cat() {
+    $req1 = mysqli_query(dbconnect(),"SELECT * FROM v_liste_objet_categorie "); 
+    $res=array();
+    while($result1 = mysqli_fetch_array($req1)){
+        $res[]=$result1;
+    }
+    return $res;  
+}
+
 
 ?>
