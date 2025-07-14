@@ -1,27 +1,54 @@
 <?php 
 require "../inc/fonction.php";
 
-$categorie = $_GET['categorie'] ;
-echo $categorie;
-$cat = recherche_jiaby($categorie);
+$categorie = isset($_GET['categorie']) ? $_GET['categorie'] : "";
+$nom_obj = isset($_GET['nom']) ? $_GET['nom'] : "";
+$dispo = isset($_GET['disponible']) ? 1 : 0;
 
-$nom_obj = $_GET['nom'] ;
-echo $nom_obj;
-
-$dispo = $_GET['disponible'] ;
-echo $dispo;
-
-
+$cat = [];
+if ($categorie !== "" || $nom_obj !== "" || $dispo) {
+    $cat = recherche_combinee($categorie, $nom_obj, $dispo);
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Critere de recherche</title>
+    <title>Critère de recherche</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1> Critere de recherche </h1>
+    <h1> Critère de recherche </h1>
+
+    <?php if (!empty($cat)) : ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom Objet</th>
+                    <th>Catégorie</th>
+                    <th>Disponibilité</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($cat as $objet) : ?>
+                    <tr>
+                        <td><?= htmlspecialchars($objet['nom_objet']) ?></td>
+                        <td><?= htmlspecialchars($objet['nom_categorie']) ?></td>
+                        <td><?= ($objet['disponible']) ? "Disponible" : "Indisponible" ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else : ?>
+        <p>Aucun objet trouvé.</p>
+    <?php endif; ?>
+    <a href="Liste_object.php">Retour</a>
 </body>
 </html>
