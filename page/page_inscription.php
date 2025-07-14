@@ -24,7 +24,7 @@
 
         <!-- Formulaire d'inscription -->
         <div class="form-container fade-in">
-            <form action="traitement_insc.php" method="get" enctype="multipart/form-data">
+            <form action="traitement_insc.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="form-label" for="nom">
                         <i class="bi bi-person"></i>
@@ -114,7 +114,7 @@
     </div>
 
     <script>
-        // Amélioration de l'input file
+         //Amélioration de l'input file
         document.getElementById('media').addEventListener('change', function(e) {
             const label = document.querySelector('.file-input-label');
             const fileName = e.target.files[0]?.name;
