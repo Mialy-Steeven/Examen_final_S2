@@ -1,7 +1,10 @@
 <?php
 require "../inc/fonction.php";
+
 $liste_object = list_object();
 $liste_objet_cat = list_object_cat();
+$lis_cat=list_cat();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,6 +30,29 @@ $liste_objet_cat = list_object_cat();
             <p class="page-subtitle">Suivi et gestion des objets empruntés</p>
         </div>
 
+        <div>
+            <form method="GET" action="recherche.php">
+                <label for="categorie">Catégorie :</label>
+                <select name="categorie" id="categorie">
+                    <option value="">categorie objet</option>
+                    <?php foreach ($lis_cat as $key => $value) { ?>
+                        <option value="<?= $value['nom_categorie']; ?>"><?= $value['nom_categorie']; ?></option>
+                    <?php } ?>
+                </select>
+                <br>
+
+                <label for="nom">Nom de l’objet :</label>
+                <input type="text" name="nom" id="nom" placeholder="objet">
+                <br>
+
+                <input type="checkbox" name="disponible" id="disponible" value="1">
+                <label for="disponible">Disponible uniquement</label>
+                <br>
+
+                <input type="submit" value="Rechercher">
+            </form>
+        </div>
+
         <!-- Tableau 1: Liste des objets -->
         <div class="table-container fade-in">
             <h2 class="table-title">
@@ -40,6 +66,10 @@ $liste_objet_cat = list_object_cat();
                         <tr>
                             <th>
                                 <i class="bi bi-box"></i>
+                                image
+                            </th>
+                            <th>
+                                <i class="bi bi-box"></i>
                                 Nom de l'objet
                             </th>
                             <th>
@@ -50,13 +80,25 @@ $liste_objet_cat = list_object_cat();
                                 <i class="bi bi-info-circle"></i>
                                 Statut
                             </th>
+                            <th>
+                                <i class="bi bi-info-circle"></i>
+                                Emprunt
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($liste_object as $value): ?>
                             <tr class="slide-in">
                                 <td>
-                                    <strong><?= htmlspecialchars($value["nom_objet"]) ?></strong>
+                                    <?php $img = !empty($value["nom_image"]) ? $value["nom_image"] : "defaut.jpg"; ?>
+                                    <img src="uploads/<?= htmlspecialchars($img) ?>" width="100" height="100" alt="Image">
+                                    <a
+                                        href="delete_image.php?id=<?= $value['id_image'] ?>&file=<?= $value['nom_image'] ?>">Suprimer</a>
+                                </td>
+                                <td>
+                                    <a href="fiche_objet.php?id=<?= $value['id_objet'] ?>">
+                                        <strong><?= htmlspecialchars($value["nom_objet"]) ?></strong>
+                                    </a>
                                 </td>
                                 <td>
                                     <?php if (!empty($value["date_retour"])): ?>
@@ -71,12 +113,25 @@ $liste_objet_cat = list_object_cat();
                                     <?php if (!empty($value["date_retour"])): ?>
                                         <span class="status-badge status-returned">
                                             <i class="bi bi-check-circle"></i>
-                                            Rendu
+                                            Disponible
                                         </span>
                                     <?php else: ?>
                                         <span class="status-badge status-pending">
                                             <i class="bi bi-clock"></i>
-                                            En cours
+                                           Disponible le <?=$value["date_retour"]?> 
+                                        </span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if (!empty($value["date_retour"])): ?>
+                                        <span class="status-badge status-returned">
+                                            <i class="bi bi-check-circle"></i>
+                                        <button><a href="page_choix_jour.php?id_ob=<?=$value['id_objet'] ?>">Emprunter</a></button>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="status-badge status-pending">
+                                            <i class="bi bi-clock"></i>
+                                        <button><a href="page_choix_jour?err=1">Emprunter</a></button>
                                         </span>
                                     <?php endif; ?>
                                 </td>
@@ -110,6 +165,10 @@ $liste_objet_cat = list_object_cat();
                                 Catégorie
                             </th>
                             <th>
+                                <i class="bi bi-tag"></i>
+                                image
+                            </th>
+                            <th>
                                 <i class="bi bi-box"></i>
                                 Nom de l'objet
                             </th>
@@ -137,6 +196,12 @@ $liste_objet_cat = list_object_cat();
                                     </span>
                                 </td>
                                 <td>
+                                    <?php $img = !empty($value["nom_image"]) ? $value["nom_image"] : "defaut.jpg"; ?>
+                                    <img src="uploads/<?= htmlspecialchars($img) ?>" width="100" height="100" alt="Image">
+                                    <a
+                                        href="delete_image.php?id=<?= $value['id_image'] ?>&file=<?= $value['nom_image'] ?>">Suprimer</a>
+                                </td>
+                                <td>
                                     <strong><?= htmlspecialchars($value["nom_objet"]) ?></strong>
                                 </td>
                                 <td>
@@ -150,7 +215,7 @@ $liste_objet_cat = list_object_cat();
                                 </td>
                                 <td>
                                     <i class="bi bi-person-circle"></i>
-                                    <?= htmlspecialchars($value["nom"]) ?>
+                                    <?= htmlspecialchars($value["nom_objet"]) ?>
                                 </td>
                                 <td>
                                     <?php if (!empty($value["date_retour"])): ?>
@@ -179,8 +244,6 @@ $liste_objet_cat = list_object_cat();
             <?php endif; ?>
         </div>
 
-
-        
 </body>
 
 </html>
