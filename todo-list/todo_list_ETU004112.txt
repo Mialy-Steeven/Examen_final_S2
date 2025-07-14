@@ -1,0 +1,13 @@
+Creation de Base:
+    -creations des tables
+    -insertion des donners
+
+Creation de pages :
+    -page de login:
+        -creation de traitement_login pour verifier l'utilisateur
+
+    -page d'inscription
+        -creation de traitement_inscr si l'utilisateur n'est pas encore inscrit
+        
+
+        
